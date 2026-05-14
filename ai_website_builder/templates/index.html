@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Website Builder — Powered by Gemini</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-icon">◈</span>
+    <span>WebCraft <em>AI</em></span>
+  </div>
+  <div class="header-badges">
+    <span class="badge">Gemini 1.5 Flash</span>
+    <span class="badge badge-green">● Live</span>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">AI-Powered Website Generator</div>
+    <h1 class="hero-title">Describe it.<br><span class="gradient-text">Build it instantly.</span></h1>
+    <p class="hero-sub">Configure your project, generate a master prompt, then let Gemini write production-ready website code — streamed live to your screen.</p>
+  </div>
+</section>
+
+<!-- ═══ MAIN APP ═══ -->
+<main class="app-grid">
+
+  <!-- LEFT PANEL: CONFIG -->
+  <aside class="panel panel-config">
+    <div class="panel-header">
+      <span class="panel-num">01</span>
+      <h2>Configure Project</h2>
+    </div>
+
+    <!-- Idea Input -->
+    <div class="field-group">
+      <label class="field-label">Website idea <span class="required">*</span></label>
+      <textarea id="ideaInput" class="field-textarea" rows="4"
+        placeholder="e.g. A SaaS landing page for a project management tool targeting remote teams — with hero, pricing, testimonials, and a waitlist form..."></textarea>
+    </div>
+
+    <!-- Tags -->
+    <div class="field-group">
+      <label class="field-label">Website type</label>
+      <div class="tag-row" id="tagRow">
+        <button class="tag" data-val="landing page">Landing Page</button>
+        <button class="tag" data-val="e-commerce store">E-Commerce</button>
+        <button class="tag" data-val="portfolio website">Portfolio</button>
+        <button class="tag" data-val="SaaS dashboard">SaaS</button>
+        <button class="tag" data-val="blog/magazine">Blog</button>
+        <button class="tag" data-val="restaurant website">Restaurant</button>
+        <button class="tag" data-val="agency website">Agency</button>
+        <button class="tag" data-val="startup product page">Startup</button>
+      </div>
+    </div>
+
+    <!-- Stack + Style -->
+    <div class="field-row">
+      <div class="field-group">
+        <label class="field-label">Tech stack</label>
+        <select id="stack" class="field-select">
+          <option>HTML + CSS + Vanilla JS</option>
+          <option>React + Tailwind CSS</option>
+          <option>Next.js + Tailwind CSS</option>
+          <option>Vue 3 + CSS Modules</option>
+          <option>Astro + Tailwind CSS</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Design style</label>
+        <select id="style" class="field-select">
+          <option>Modern & minimal</option>
+          <option>Bold & vibrant</option>
+          <option>Dark / glassmorphism</option>
+          <option>Corporate & professional</option>
+          <option>Playful & creative</option>
+          <option>Brutalist / editorial</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Color + Detail -->
+    <div class="field-row">
+      <div class="field-group">
+        <label class="field-label">Color theme</label>
+        <select id="color" class="field-select">
+          <option>Auto (AI decides)</option>
+          <option>Deep blue & white</option>
+          <option>Purple & lavender</option>
+          <option>Dark + electric accent</option>
+          <option>Earthy neutrals</option>
+          <option>Monochrome</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Detail level</label>
+        <select id="detail" class="field-select">
+          <option>Advanced (full production)</option>
+          <option>Intermediate (clean MVP)</option>
+          <option>Starter (wireframe-ready)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Code Output -->
+    <div class="field-group">
+      <label class="field-label">Code output format</label>
+      <select id="codeOut" class="field-select">
+        <option>Single file (all-in-one)</option>
+        <option>Multi-file with folder structure</option>
+        <option>Component-based breakdown</option>
+      </select>
+    </div>
+
+    <!-- Features -->
+    <div class="field-group">
+      <label class="field-label">Include features</label>
+      <div class="check-grid">
+        <label class="check-item"><input type="checkbox" id="f1" checked><span>Responsive / mobile-first</span></label>
+        <label class="check-item"><input type="checkbox" id="f2" checked><span>Animations & transitions</span></label>
+        <label class="check-item"><input type="checkbox" id="f3" checked><span>SEO meta tags</span></label>
+        <label class="check-item"><input type="checkbox" id="f4"><span>Dark mode toggle</span></label>
+        <label class="check-item"><input type="checkbox" id="f5"><span>Contact form</span></label>
+        <label class="check-item"><input type="checkbox" id="f6"><span>Accessibility (ARIA)</span></label>
+        <label class="check-item"><input type="checkbox" id="f7"><span>CMS-ready structure</span></label>
+        <label class="check-item"><input type="checkbox" id="f8"><span>Performance optimized</span></label>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="generatePrompt()">⚡ Preview Prompt</button>
+      <button class="btn btn-primary" onclick="generateWebsite()" id="buildBtn">
+        <span id="buildBtnText">✦ Build Website</span>
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- RIGHT PANEL: OUTPUT -->
+  <section class="panel panel-output">
+
+    <!-- Tabs -->
+    <div class="tab-bar">
+      <button class="tab active" data-tab="code" onclick="switchTab('code')">Code Output</button>
+      <button class="tab" data-tab="preview" onclick="switchTab('preview')">Live Preview</button>
+      <button class="tab" data-tab="prompt" onclick="switchTab('prompt')">Master Prompt</button>
+    </div>
+
+    <!-- Code Tab -->
+    <div id="tab-code" class="tab-content active">
+      <div class="code-toolbar">
+        <span id="statusBadge" class="status-badge status-idle">Idle</span>
+        <div class="toolbar-right">
+          <button class="tool-btn" onclick="copyCode()" title="Copy code">⧉ Copy</button>
+          <button class="tool-btn" onclick="downloadCode()" title="Download">↓ Download</button>
+        </div>
+      </div>
+      <div id="codeOutput" class="code-area">
+        <div class="empty-state">
+          <div class="empty-icon">◈</div>
+          <p>Your generated website code will stream here.</p>
+          <p class="empty-sub">Configure your project on the left and click <strong>Build Website</strong>.</p>
+        </div>
+      </div>
+      <!-- Streaming progress bar -->
+      <div class="progress-bar-wrap" id="progressWrap" style="display:none">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <!-- Preview Tab -->
+    <div id="tab-preview" class="tab-content">
+      <div class="preview-toolbar">
+        <div class="device-btns">
+          <button class="device-btn active" onclick="setPreviewWidth('100%', this)" title="Desktop">⬜</button>
+          <button class="device-btn" onclick="setPreviewWidth('768px', this)" title="Tablet">▭</button>
+          <button class="device-btn" onclick="setPreviewWidth('375px', this)" title="Mobile">▯</button>
+        </div>
+        <button class="tool-btn" onclick="refreshPreview()">↻ Refresh</button>
+      </div>
+      <div class="preview-frame-wrap">
+        <iframe id="previewFrame" class="preview-frame" sandbox="allow-scripts allow-same-origin"></iframe>
+      </div>
+    </div>
+
+    <!-- Prompt Tab -->
+    <div id="tab-prompt" class="tab-content">
+      <div class="code-toolbar">
+        <span class="status-badge" style="background:rgba(99,190,255,0.12);color:#63beff">Master Prompt</span>
+        <button class="tool-btn" onclick="copyPromptText()">⧉ Copy Prompt</button>
+      </div>
+      <pre id="promptOutput" class="code-area prompt-area">Click "Preview Prompt" or "Build Website" to see the generated master prompt here.</pre>
+    </div>
+
+    <!-- Refine Bar -->
+    <div class="refine-bar" id="refineBar" style="display:none">
+      <input type="text" id="refineInput" class="refine-input" placeholder='e.g. "Change hero background to dark navy" or "Add a FAQ section"'>
+      <button class="btn btn-primary btn-sm" onclick="refineCode()">Refine ↗</button>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <span>WebCraft AI &nbsp;·&nbsp; Powered by <strong>Google Gemini 1.5 Flash</strong></span>
+  <span>Built with Python + Flask</span>
+</footer>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>
